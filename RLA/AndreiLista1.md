@@ -1,5 +1,5 @@
 # UNIFOR
-**Nome**: Nome do estudante <br>
+**Nome**: Andrei Araripe de Souza e Silva <br>
 **Disciplina**: Raciocínio lógico algorítmico
 
 ## Lista de exercícios 01
