@@ -1,1 +1,189 @@
+//Número é Primo
+//JavaScript:
+
+function isPrime(n) {
+    if (n <= 1) return false;
+    for (let i = 2; i <= Math.sqrt(n); i++) {
+        if (n % i === 0) return false;
+    }
+    return true;
+}
+
+console.log(isPrime(7));  // true
+console.log(isPrime(10)); // false
+//Java:
+
+public class Main {
+    public static boolean isPrime(int n) {
+        if (n <= 1) return false;
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isPrime(7));  // true
+        System.out.println(isPrime(10)); // false
+    }
+}
+
+//Somatório
+//JavaScript:
+
+function sum(numbers) {
+    return numbers.reduce((acc, curr) => acc + curr, 0);
+}
+
+console.log(sum([1, 2, 3, 4]));  // 10
+
+//Java:
+
+public class Main {
+    public static int sum(int[] numbers) {
+        int total = 0;
+        for (int num : numbers) {
+            total += num;
+        }
+        return total;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(sum(new int[]{1, 2, 3, 4}));  // 10
+    }
+}
+//Fibonacci
+//JavaScript:
+function fibonacci(n) {
+    let fib = [0, 1];
+    for (let i = 2; i <= n; i++) {
+        fib[i] = fib[i - 1] + fib[i - 2];
+    }
+    return fib;
+}
+
+console.log(fibonacci(6));  // [0, 1, 1, 2, 3, 5, 8]
+//java:
+
+public class Main {
+    public static int[] fibonacci(int n) {
+        int[] fib = new int[n + 1];
+        fib[0] = 0;
+        fib[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            fib[i] = fib[i - 1] + fib[i - 2];
+        }
+        return fib;
+    }
+
+    public static void main(String[] args) {
+        int[] fibSeq = fibonacci(6);
+        for (int num : fibSeq) {
+            System.out.print(num + " ");
+        }
+    }
+}
+
+//Máximo Divisor Comum (MDC)
+//javaScript:
+
+function mdc(a, b) {
+    while (b !== 0) {
+        let temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+console.log(mdc(56, 98));  // 14
+
+//Java:
+
+public class Main {
+    public static int mdc(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(mdc(56, 98));  // 14
+    }
+}
+
+//Ordenação com Quicksort
+//JavaScript:
+
+function quicksort(arr) {
+    if (arr.length <= 1) return arr;
+    const pivot = arr[0];
+    const left = arr.slice(1).filter(x => x < pivot);
+    const right = arr.slice(1).filter(x => x >= pivot);
+    return [...quicksort(left), pivot, ...quicksort(right)];
+}
+
+console.log(quicksort([5, 2, 9, 1, 5, 6]));  // [1, 2, 5, 5, 6, 9]
+
+//Java:
+
+import java.util.Arrays;
+
+public class QuickSort {
+    public static int[] quicksort(int[] arr) {
+        if (arr.length <= 1) return arr;
+        int pivot = arr[0];
+        int[] left = Arrays.stream(arr).filter(x -> x < pivot).toArray();
+        int[] right = Arrays.stream(arr).filter(x -> x > pivot).toArray();
+        return concatenate(quicksort(left), new int[]{pivot}, quicksort(right));
+    }
+
+    public static int[] concatenate(int[] left, int[] middle, int[] right) {
+        int[] result = new int[left.length + middle.length + right.length];
+        System.arraycopy(left, 0, result, 0, left.length);
+        System.arraycopy(middle, 0, result, left.length, middle.length);
+        System.arraycopy(right, 0, result, left.length + middle.length, right.length);
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {10, 7, 8, 9, 1, 5};
+        System.out.println(Arrays.toString(quicksort(arr))); // [1, 5, 7, 8, 9, 10]
+    }
+}
+
+//Contagem de Números Dentro de um Intervalo
+//JavaScript:
+
+function countInRange(arr, N) {
+  const lowerBound = arr[0];
+  return arr.filter(num => num >= lowerBound && num <= N).length;
+}
+
+console.log(countInRange([1, 2, 3, 4, 5], 4)); // 4
+
+//Java
+
+public class CountInRange {
+    public static int countInRange(int[] arr, int N) {
+        int lowerBound = arr[0];
+        int count = 0;
+        for (int num : arr) {
+            if (num >= lowerBound && num <= N) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 5};
+        System.out.println(countInRange(arr, 4)); // 4
+    }
+}
+
+
 
