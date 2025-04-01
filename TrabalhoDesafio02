@@ -1,0 +1,141 @@
+//Codigo em C do programa que lê numeros e os escreve por extenso:#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+// Funções auxiliares para converter partes do número
+void unidades(int num, char *extenso);
+void dezenas(int num, char *extenso);
+void centenas(int num, char *extenso);
+void milhares(int num, char *extenso);
+
+int main() {
+    char numero_str[7];
+    int numero;
+    char extenso[500] = ""; // Buffer para o número por extenso
+
+    printf("Digite um número de até 6 dígitos: ");
+    scanf("%6s", numero_str);
+
+    // Converte a string para inteiro
+    numero = atoi(numero_str);
+
+    if (numero == 0) {
+        strcat(extenso, "Zero Reais");
+    } else if (numero == 1) {
+        strcat(extenso, "Um Real");
+    } else {
+        // Processa os milhares (parte superior do número)
+        if (strlen(numero_str) > 3) {
+            int parte_milhar = numero / 1000;
+            if (parte_milhar > 0) {
+                milhares(parte_milhar, extenso);
+                strcat(extenso, " Mil");
+                if (numero % 1000 != 0) {
+                    strcat(extenso, ", ");
+                }
+            }
+        }
+
+        // Processa as centenas, dezenas e unidades (parte inferior do número)
+        int parte_inferior = numero % 1000;
+        if (parte_inferior > 0) {
+            centenas(parte_inferior, extenso);
+        }
+
+        // Adiciona "Reais" no final
+        strcat(extenso, " Reais");
+    }
+
+    // Corrige a primeira letra para maiúscula
+    if (extenso[0] >= 'a' && extenso[0] <= 'z') {
+        extenso[0] = extenso[0] - 32;
+    }
+
+    printf("\n%s\n", extenso);
+
+    return 0;
+}
+
+void unidades(int num, char *extenso) {
+    const char *unidades[] = {
+        "", "Um", "Dois", "Três", "Quatro", "Cinco", 
+        "Seis", "Sete", "Oito", "Nove"
+    };
+    if (num > 0 && num < 10) {
+        strcat(extenso, unidades[num]);
+    }
+}
+
+void dezenas_10_a_19(int num, char *extenso) {
+    const char *dez_a_dezenove[] = {
+        "Dez", "Onze", "Doze", "Treze", "Quatorze", 
+        "Quinze", "Dezesseis", "Dezessete", "Dezoito", "Dezenove"
+    };
+    strcat(extenso, dez_a_dezenove[num - 10]);
+}
+
+void dezenas_20_a_90(int num, char *extenso) {
+    const char *dezenas[] = {
+        "", "", "Vinte", "Trinta", "Quarenta", 
+        "Cinquenta", "Sessenta", "Setenta", "Oitenta", "Noventa"
+    };
+    int dezena = num / 10;
+    int unidade = num % 10;
+
+    strcat(extenso, dezenas[dezena]);
+    if (unidade != 0) {
+        strcat(extenso, " e ");
+        unidades(unidade, extenso);
+    }
+}
+
+void dezenas(int num, char *extenso) {
+    if (num >= 10 && num <= 19) {
+        dezenas_10_a_19(num, extenso);
+    } else if (num >= 20 && num <= 99) {
+        dezenas_20_a_90(num, extenso);
+    } else if (num < 10) {
+        unidades(num, extenso);
+    }
+}
+
+void centenas(int num, char *extenso) {
+    const char *centenas[] = {
+        "", "Cem", "Duzentos", "Trezentos", "Quatrocentos", 
+        "Quinhentos", "Seiscentos", "Setecentos", "Oitocentos", "Novecentos"
+    };
+
+    int centena = num / 100;
+    int resto = num % 100;
+
+    if (centena > 0) {
+        if (resto == 0) {
+            strcat(extenso, centenas[centena]);
+        } else {
+            // Casos especiais para 100
+            if (centena == 1) {
+                strcat(extenso, "Cento");
+            } else {
+                strcat(extenso, centenas[centena]);
+            }
+            strcat(extenso, " e ");
+        }
+    }
+
+    if (resto > 0) {
+        dezenas(resto, extenso);
+    }
+}
+
+void milhares(int num, char *extenso) {
+    if (num >= 100) {
+        centenas(num, extenso);
+    } else if (num >= 10) {
+        dezenas(num, extenso);
+    } else {
+        unidades(num, extenso);
+    }
+}
+
+ps:Feito para rodar no replit.
+link replit:https://replit.com/@2000lobitos/TrabalhoDesafioor#main.c
