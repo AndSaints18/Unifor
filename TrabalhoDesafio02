@@ -1,4 +1,7 @@
-//Codigo em C do programa que lê numeros e os escreve por extenso:#include <stdio.h>
+ps:Feito para rodar no replit.
+link replit:https://replit.com/@2000lobitos/TrabalhoDesafioor#main.c
+//Codigo em C do programa que lê numeros e os escreve por extenso:
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -137,5 +140,3 @@ void milhares(int num, char *extenso) {
     }
 }
 
-ps:Feito para rodar no replit.
-link replit:https://replit.com/@2000lobitos/TrabalhoDesafioor#main.c
